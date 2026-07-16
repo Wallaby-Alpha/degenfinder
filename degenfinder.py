@@ -386,7 +386,7 @@ def track_positions():
             if hours_held >= plan["time_stop_hours"] and pct_move < 10:
                 signals.append(f"⏱ TIME STOP: held {hours_held:.1f}h with no real move — thesis likely invalid")
 
-                        symbol = entry.get("symbol", addr[:8])
+                    symbol = entry.get("symbol", addr[:8])
 
             print(f"{symbol:12} {pct_move:+7.1f}%  liq {liq_drop_pct:+.0f}% vs entry  held {hours_held:.1f}h")
 
