@@ -50,7 +50,7 @@ import argparse
 import math
 from datetime import datetime, timezone
 
-DEXSCREENER_BASE = "https://api.dexscreener.com"
+DEXSCREENER_BASE = "https://api.dexscreeener.com"
 WATCHLIST_FILE = "/tmp/solana_pump_watchlist.json"
 
 # In Colab you can't pass --track on the command line — flip this to True,
@@ -378,7 +378,7 @@ def track_positions():
             elif pct_move >= 25:
                 signals.append("🟡 partial target: +25% hit — consider trimming")
             if pct_move <= -plan["stop_loss_pct"]:
-                signals.append(f"🔴 STOP LOSS: down {pct_move:.1f}% (limit -{plan['stop_loss_pct']}%)")
+                signals.append(f"🔴 STOP LOSS: down {pct_move:.1f}% (limit -{plan['stop_loss_pct']}%) ")
             if liq_drop_pct >= plan["liquidity_kill_pct"]:
                 signals.append(f"🔴 LIQUIDITY PULLED: liquidity down {liq_drop_pct:.0f}% since entry — possible rug, exit now")
             if ratio_m5_now < 0.8:
@@ -480,7 +480,7 @@ def main():
         print(f"    https://dexscreener.com/solana/{c['address']}")
         print()
 
-telegram_msg = f"""
+        telegram_msg = f"""
 🚀 <b>Pump Candidate Found</b>
 
 <b>{c['symbol']}</b>
@@ -501,13 +501,13 @@ https://dexscreener.com/solana/{c['address']}
        
 
         watchlist[c["address"]] = {
-            "symbol": c["symbol"],
-            "entry_price": c["price_usd"],
-            "entry_liquidity": c["liquidity"],
-            "entry_time": datetime.now(timezone.utc).isoformat(),
-            "entry_score": s["total"],
-            "exit_plan": plan,
-        }
+                    "symbol": c["symbol"],
+                    "entry_price": c["price_usd"],
+                    "entry_liquidity": c["liquidity"],
+                    "entry_time": datetime.now(timezone.utc).isoformat(),
+                    "entry_score": s["total"],
+                    "exit_plan": plan,
+                }
 
     save_watchlist(watchlist)
     print(f"Watchlist saved to {WATCHLIST_FILE} ({len(watchlist)} tokens tracked).")
